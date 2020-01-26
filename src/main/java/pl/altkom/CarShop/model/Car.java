@@ -1,32 +1,42 @@
 package pl.altkom.CarShop.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.validation.constraints.DecimalMin;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
-@ResponseBody
+@Entity(name = "carsDB")
 public class Car {
 
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @NotNull
     @Size(min = 2, max = 20, message = "{first.inCorrectCarBrandLength}")
+    @Column(length = 20, name = "car_brand")
     private String carBrand;
+
     @NotNull
     @Size(min = 2, max = 20, message = "{first.inCorrectCarModelLength}")
+    @Column(length = 20, name = "car_model")
     private String carModel;
+
     @NotNull
     @Size(min = 2, max = 20, message = "{first.icCorrectColorLength}")
+    @Column(length = 20, name = "car_color")
     private String color;
+
     @NotNull(message = "{first.noDate}")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "date")
     private LocalDate yearOfProduction;
+
     @NotNull
     @Size(min = 17, max = 17, message = "{first.inCorrectVinLength}")
+    @Column(length = 17, name = "VIN_number")
     private String VIN;
 
     public Car() {
@@ -40,11 +50,11 @@ public class Car {
         this.VIN = VIN;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

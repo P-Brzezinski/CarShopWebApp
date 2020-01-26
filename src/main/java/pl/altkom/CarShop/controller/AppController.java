@@ -7,7 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import pl.altkom.CarShop.dao.CarDao;
+import pl.altkom.CarShop.dao.CarRepositoryDataJpaImpl;
 import pl.altkom.CarShop.model.Car;
 
 import javax.validation.Valid;
@@ -17,7 +17,7 @@ import java.util.List;
 public class AppController {
 
     @Autowired
-    private CarDao dao;
+    private CarRepositoryDataJpaImpl dao;
 
     @GetMapping("/saveCar")
     public String showCarForm(Car car) {
@@ -29,25 +29,25 @@ public class AppController {
         if (bindingResult.hasErrors()){
             return "newCarForm";
         }
-        dao.saveCar(car);
+        dao.save(car);
         return "showSavedCar";
     }
 
     @GetMapping("/deleteCar")
-    public String deleteCar(@RequestParam(name = "carId") int id) {
-        dao.deleteCar(id);
-        return "/showAllCars";
+    public String deleteCar(@RequestParam(name = "carId") Long id) {
+        dao.deleteById(id);
+        return "redirect:/getCars";
     }
 
     @GetMapping("/getCars")
     public String showAllCarsList(final Model model) {
-        List<Car> carList = dao.getCars();
+        List<Car> carList = dao.findAll();
         model.addAttribute("cars", carList);
         return "showAllCars";
     }
 
     @GetMapping("/editCar")
-    public String editCar(@RequestParam(name = "carId") Integer carId, Car car) {
+    public String editCar(@RequestParam(name = "carId") Long carId, Car car) {
         car.setId(carId);
         return "editCarForm";
     }
@@ -57,7 +57,7 @@ public class AppController {
         if (bindingResult.hasErrors()){
             return "editCarForm";
         }
-        dao.editCar(car);
+        dao.save(car);
         return "index";
     }
 }
