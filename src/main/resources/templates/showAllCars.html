@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cars in database</title>
+</head>
+<body>
+<table>
+    <tr th:each="car: ${cars}">
+        <p><td th:text="${car.id}"/></p>
+        <p><td th:text="${car.carBrand}"/></p>
+        <p><td th:text="${car.carModel}"/></p>
+        <p><td th:text="${car.color}"/></p>
+        <p><td th:text="${car.yearOfProduction}"/></p>
+        <p><td th:text="${car.VIN}"/></p>
+        <td><a href="/deleteCar" th:href="@{/deleteCar(carId=${car.id})}">Remove Car</a></td>
+        <td><a href="/editCar" th:href="@{/editCar(carId=${car.id})}">Edit Car</a></td>
+    </tr>
+</table>
+<a href="/">Return to main menu</a>
+</body>
+</html>

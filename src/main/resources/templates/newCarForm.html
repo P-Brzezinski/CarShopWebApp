@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new car</title>
+</head>
+<body>
+    <form method="post" action="#" th:object="${car}" th:action="@{/saveCar}">
+
+        <p>Car brand:<input th:field="*{carBrand}" type="text"></p>
+        <p th:if="${#fields.hasErrors('carBrand')}" th:errors="*{carBrand}">Car Brand Error!</p>
+
+        <p>Car model:<input th:field="*{carModel}" type="text"></p>
+        <p th:if="${#fields.hasErrors('carModel')}" th:errors="*{carModel}">Car Model Error!</p>
+
+        <p>Color:<input th:field="*{color}" type="text"></p>
+        <p th:if="${#fields.hasErrors('color')}" th:errors="*{color}">Car Color Error!</p>
+
+        <p>Year of production:<input th:field="*{yearOfProduction}" type="date"></p>
+        <p th:if="${#fields.hasErrors('yearOfProduction')}" th:errors="*{yearOfProduction}">Car Year of Production Error!</p>
+
+        <p>VIN:<input th:field="*{VIN}" type="text"></p>
+        <p th:if="${#fields.hasErrors('VIN')}" th:errors="*{VIN}">Car VIN Error!</p>
+
+        <p><input type="submit" value="Submit"></p>
+    </form>
+    <button><a href="/">Main Menu</a></button>
+</body>
+</html>
