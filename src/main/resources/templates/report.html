@@ -5,18 +5,20 @@
     <title>Cars in database</title>
 </head>
 <body>
+<p th:text="${reportData.reportTitle}">Report Titile</p>
 <table>
-    <tr th:each="car: ${cars}">
+    <tr th:each="car: ${reportData.getReportData()}">
         <p><td th:text="${car.id}"/></p>
         <p><td th:text="${car.carBrand}"/></p>
         <p><td th:text="${car.carModel}"/></p>
         <p><td th:text="${car.color}"/></p>
         <p><td th:text="${car.yearOfProduction}"/></p>
         <p><td th:text="${car.VIN}"/></p>
-        <td><a href="/deleteCar" th:href="@{/deleteCar(carId=${car.id})}">Remove Car</a></td>
-        <td><a href="/editCar" th:href="@{/editCar(carId=${car.id})}">Edit Car</a></td>
     </tr>
 </table>
+
+<p th:text="${reportData.getNumberOfRecords()}"> - number of records found</p>
 <a href="/">Return to main menu</a>
+
 </body>
 </html>

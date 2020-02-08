@@ -14,6 +14,7 @@ public class CarShopApplication {
         SpringApplication.run(CarShopApplication.class, args);
     }
 
+    //do obłsugi messages.properties - "błędy"
     @Bean
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
