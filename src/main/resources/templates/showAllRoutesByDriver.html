@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Drivers</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+        th {
+            background-color: aquamarine;
+        }
+    </style>
+
+    <meta charset="UTF-8">
+    <title>All routes for Driver</title>
+</head>
+<body>
+<h1>All routes by Driver:</h1>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Route name</th>
+        <th>Start date</th>
+        <th>Start time</th>
+        <th>Start adress</th>
+        <th>End address</th>
+        <th>Planned end date</th>
+        <th>Planned end time</th>
+    </tr>
+    <tr th:each="route : ${allRoutes}">
+        <td th:text="${route.id}"/>
+        <td th:text="${route.routeName}"/>
+        <td th:text="${route.startDate}"/>
+        <td th:text="${route.startTime}"/>
+        <td th:text="${route.startAdress}"/>
+        <td th:text="${route.endAdress}"/>
+        <td th:text="${route.plannedEndDate}"/>
+        <td th:text="${route.endTime}"/>
+    </tr>
+</table>
+
+<a href="/">Return to main menu</a>
+
+</body>
+</html>

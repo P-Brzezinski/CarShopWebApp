@@ -22,6 +22,7 @@
         <td th:text="*{driver.id}"></td>
         <td th:text="*{driver.firstName}"></td>
         <td th:text="*{driver.lastName}"></td>
+        <td><a href="/showRoutesByDriver" th:href="@{/showRoutesByDriver(driverId=${driver.id})}">Show assigned routes</a></td>
     </tr>
 </table>
 <a href="/">Return to main menu</a>

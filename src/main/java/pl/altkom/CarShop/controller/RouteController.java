@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.altkom.CarShop.dao.CarRepositoryDataJpaImpl;
 import pl.altkom.CarShop.dao.DriverRepositoryDataJpaImpl;
 import pl.altkom.CarShop.dao.RouteRepositoryDataJpaImpl;
@@ -15,7 +16,7 @@ import pl.altkom.CarShop.model.Route;
 import java.util.List;
 
 @Controller
-public class RouteCreatorController {
+public class RouteController {
 
     @Autowired
     private DriverRepositoryDataJpaImpl driverDao;
@@ -57,5 +58,15 @@ public class RouteCreatorController {
         carDao.save(car); // update na tabeli Route z wpisaniem car_id
 
         return "redirect:/";
+    }
+
+    @GetMapping("/showRoutesByDriver")
+    public String showRoutesByUserId(final Model model, @RequestParam Long driverId){
+
+        Driver driver = driverDao.getOne(driverId);
+
+        List<Route> routes = driver.getRoutes();
+        model.addAttribute("allRoutes", routes);
+        return "showAllRoutesByDriver";
     }
 }

@@ -26,6 +26,10 @@ public class Driver {
         this.routes.add(route);
     }
 
+    public List<Route> getRoutes() {
+        return routes;
+    }
+
     public Driver() {
     }
 

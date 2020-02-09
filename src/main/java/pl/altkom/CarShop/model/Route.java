@@ -41,6 +41,9 @@ public class Route {
     @Transient
     private Long carId;
 
+    public Route() {
+    }
+
     public Route(String routeName, LocalDate startDate, LocalDate plannedEndDate, LocalTime startTime, LocalTime endTime, String startAdress, String endAdress, Long driverId, Long carId) {
         this.routeName = routeName;
         this.startDate = startDate;
