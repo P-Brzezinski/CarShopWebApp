@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New driver</title>
+</head>
+<body>
+<h1>Create new driver:</h1>
+<form method="post" action="#" th:object="${driver}" th:action="@{/saveNewDriver}">
+
+    <p>First name:<input th:field="*{firstName}" type="text"></p>
+
+    <p>Last name:<input th:field="*{lastName}" type="text"></p>
+
+    <p><input type="submit" value="Submit"></p>
+</form>
+<button><a href="/">Main Menu</a></button>
+
+</body>
+</html>

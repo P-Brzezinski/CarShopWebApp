@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Drivers</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+
+</head>
+<body>
+<h1>All drivers list:</h1>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+    </tr>
+    <tr th:each="driver : ${allDriversList}">
+        <td th:text="*{driver.id}"></td>
+        <td th:text="*{driver.firstName}"></td>
+        <td th:text="*{driver.lastName}"></td>
+    </tr>
+</table>
+<a href="/">Return to main menu</a>
+</body>
+</html>

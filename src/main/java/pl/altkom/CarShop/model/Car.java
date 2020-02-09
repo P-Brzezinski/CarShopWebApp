@@ -6,6 +6,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "carsDB")
 public class Car {
@@ -38,6 +40,10 @@ public class Car {
     @Size(min = 17, max = 17, message = "{first.inCorrectVinLength}")
     @Column(length = 17, name = "VIN_number")
     private String VIN;
+
+    @OneToMany
+    @JoinColumn(name = "car_id") //tabela route
+    private List<Route> routes = new ArrayList<>(0);
 
     public Car() {
     }
@@ -108,5 +114,9 @@ public class Car {
                 ", yearOfProduction=" + yearOfProduction +
                 ", VIN='" + VIN + '\'' +
                 '}';
+    }
+
+    public void addRoute(Route route) {
+        this.routes.add(route);
     }
 }

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New route</title>
+</head>
+<body>
+<h1>Create New Route Form:</h1>
+<form method="post" action="#" th:object="${route}" th:action="@{/saveRoute}">
+
+    <h2>Route name: <input th:field="*{routeName}" type="text"></h2>
+    <h3>Start at:</h3>
+    Adress:<input th:field="*{startAdress}" type="text">
+    <br>
+    Date:<input th:field="*{startDate}" type="date">
+    <br>
+    Time:<input th:field="*{startTime}" type="time">
+    <br>
+
+    <h3>Driver and Car:</h3>
+    <p>
+        Add driver:<select th:field="*{driverId}">
+        <option value="">SELECT</option>
+        <option th:each="driver : ${allDrivers}"
+                th:value="${driver.id}"
+                th:utext="${driver.lastName}"/>
+    </select>
+        <br>
+        Add car:<select th:field="*{carId}">
+        <option value="">SELECT</option>
+        <option th:each="car : ${allCars}"
+                th:value="${car.id}"
+                th:utext="${car.carModel}"/>
+    </select>
+    </p>
+
+    <h3>End At:</h3>
+    Adress:<input th:field="*{endAdress}" type="text">
+    <br>
+    Date:<input th:field="*{plannedEndDate}" type="date">
+    <br>
+    Time:<input th:field="*{endTime}" type="time">
+    <br>
+    <input type="submit">
+</form>
+
+</body>
+</html>

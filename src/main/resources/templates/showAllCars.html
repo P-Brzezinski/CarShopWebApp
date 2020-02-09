@@ -3,9 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Cars in database</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+        th {
+            background-color: aquamarine;
+        }
+    </style>
 </head>
 <body>
 <table>
+    <tr>
+        <th>ID</th>
+        <th>Brand</th>
+        <th>Model</th>
+        <th>Color</th>
+        <th>Year</th>
+        <th>VIN</th>
+        <th>Remove Car</th>
+        <th>Edit Car</th>
+    </tr>
     <tr th:each="car: ${cars}">
         <p><td th:text="${car.id}"/></p>
         <p><td th:text="${car.carBrand}"/></p>
@@ -13,8 +31,8 @@
         <p><td th:text="${car.color}"/></p>
         <p><td th:text="${car.yearOfProduction}"/></p>
         <p><td th:text="${car.VIN}"/></p>
-        <td><a href="/deleteCar" th:href="@{/deleteCar(carId=${car.id})}">Remove Car</a></td>
-        <td><a href="/editCar" th:href="@{/editCar(carId=${car.id})}">Edit Car</a></td>
+        <td><a href="/deleteCar" th:href="@{/deleteCar(carId=${car.id})}">Deleter</a></td>
+        <td><a href="/editCar" th:href="@{/editCar(carId=${car.id})}">Edit</a></td>
     </tr>
 </table>
 <a href="/">Return to main menu</a>
