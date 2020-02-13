@@ -1,6 +1,7 @@
 package pl.altkom.CarShop.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import pl.altkom.CarShop.model.enums.Color;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -27,9 +28,10 @@ public class Car {
     private String carModel;
 
     @NotNull
-    @Size(min = 2, max = 20, message = "{first.icCorrectColorLength}")
+//    @Size(min = 2, max = 20, message = "{first.icCorrectColorLength}")
+    @Enumerated(EnumType.STRING)
     @Column(length = 20, name = "car_color")
-    private String color;
+    private Color color;
 
     @NotNull(message = "{first.noDate}")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -48,7 +50,7 @@ public class Car {
     public Car() {
     }
 
-    public Car(String carBrand, String carModel, String color, LocalDate yearOfProduction, String VIN) {
+    public Car(String carBrand, String carModel, Color color, LocalDate yearOfProduction, String VIN) {
         this.carBrand = carBrand;
         this.carModel = carModel;
         this.color = color;
@@ -80,11 +82,11 @@ public class Car {
         this.carModel = carModel;
     }
 
-    public String getColor() {
+    public Color getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(Color color) {
         this.color = color;
     }
 

@@ -1,4 +1,4 @@
-package pl.altkom.CarShop.controller;
+package pl.altkom.CarShop.controller.managers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +16,7 @@ import pl.altkom.CarShop.model.Route;
 import java.util.List;
 
 @Controller
-public class RouteController {
+public class RouteManagerController {
 
     @Autowired
     private DriverRepositoryDataJpaImpl driverDao;

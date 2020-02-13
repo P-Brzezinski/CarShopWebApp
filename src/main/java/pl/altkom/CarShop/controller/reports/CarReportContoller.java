@@ -1,4 +1,4 @@
-package pl.altkom.CarShop.controller;
+package pl.altkom.CarShop.controller.reports;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

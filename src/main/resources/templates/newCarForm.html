@@ -13,8 +13,12 @@
         <p>Car model:<input th:field="*{carModel}" type="text"></p>
         <p th:if="${#fields.hasErrors('carModel')}" th:errors="*{carModel}">Car Model Error!</p>
 
-        <p>Color:<input th:field="*{color}" type="text"></p>
-        <p th:if="${#fields.hasErrors('color')}" th:errors="*{color}">Car Color Error!</p>
+        <p>Color:<select th:field="*{color}">
+            <option value="">SELECT</option>
+            <option th:each="tr : ${colorModel}"
+                    th:value="${tr}"
+                    th:utext="${tr.name().toLowerCase()}" />
+        </select>
 
         <p>Year of production:<input th:field="*{yearOfProduction}" type="date"></p>
         <p th:if="${#fields.hasErrors('yearOfProduction')}" th:errors="*{yearOfProduction}">Car Year of Production Error!</p>

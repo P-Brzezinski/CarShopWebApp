@@ -28,10 +28,10 @@
         <p><td th:text="${car.id}"/></p>
         <p><td th:text="${car.carBrand}"/></p>
         <p><td th:text="${car.carModel}"/></p>
-        <p><td th:text="${car.color}"/></p>
+        <p><td th:text="${car.color.name().toLowerCase()}"/></p>
         <p><td th:text="${car.yearOfProduction}"/></p>
         <p><td th:text="${car.VIN}"/></p>
-        <td><a href="/deleteCar" th:href="@{/deleteCar(carId=${car.id})}">Deleter</a></td>
+        <td><a href="/deleteCar" th:href="@{/deleteCar(carId=${car.id})}">Delete</a></td>
         <td><a href="/editCar" th:href="@{/editCar(carId=${car.id})}">Edit</a></td>
     </tr>
 </table>

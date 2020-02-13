@@ -1,4 +1,4 @@
-package pl.altkom.CarShop.controller;
+package pl.altkom.CarShop.controller.managers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,18 +9,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.altkom.CarShop.dao.CarRepositoryDataJpaImpl;
 import pl.altkom.CarShop.model.Car;
+import pl.altkom.CarShop.model.enums.Color;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-public class AppController {
+public class CarManagerController {
 
     @Autowired
     private CarRepositoryDataJpaImpl dao;
 
     @GetMapping("/saveCar")
-    public String showCarForm(Car car) {
+    public String showCarForm(final Model model, Car car) {
+
+        model.addAttribute("colorModel", Color.values());
         return "newCarForm";
     }
 
