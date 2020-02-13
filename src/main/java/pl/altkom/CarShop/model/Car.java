@@ -43,7 +43,7 @@ public class Car {
     @Column(length = 17, name = "VIN_number")
     private String VIN;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "car_id") //tabela route
     private List<Route> routes = new ArrayList<>(0);
 

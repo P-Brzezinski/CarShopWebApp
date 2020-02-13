@@ -20,7 +20,7 @@ public class CarManagerController {
     @Autowired
     private CarRepositoryDataJpaImpl dao;
 
-    @GetMapping("/saveCar")
+    @GetMapping("/createNewCar")
     public String showCarForm(final Model model, Car car) {
 
         model.addAttribute("colorModel", Color.values());
@@ -44,8 +44,8 @@ public class CarManagerController {
 
     @GetMapping("/getCars")
     public String showAllCarsList(final Model model) {
-        List<Car> carList = dao.findAll();
-        model.addAttribute("cars", carList);
+        List<Car> allCars = dao.findAll();
+        model.addAttribute("cars", allCars);
         return "showAllCars";
     }
 

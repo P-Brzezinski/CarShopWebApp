@@ -7,8 +7,10 @@
         table, th, td {
             border: 1px solid black;
         }
+        th {
+            background-color: aquamarine;
+        }
     </style>
-
 </head>
 <body>
 <h1>All drivers list:</h1>
@@ -17,14 +19,16 @@
         <th>ID</th>
         <th>First Name</th>
         <th>Last Name</th>
+        <th>Show assigned Routes</th>
     </tr>
     <tr th:each="driver : ${allDriversList}">
         <td th:text="*{driver.id}"></td>
         <td th:text="*{driver.firstName}"></td>
         <td th:text="*{driver.lastName}"></td>
-        <td><a href="/showRoutesByDriver" th:href="@{/showRoutesByDriver(driverId=${driver.id})}">Show assigned routes</a></td>
+        <td><a href="/showRoutesByDriver" th:href="@{/showRoutesByDriverId(driverId=${driver.id})}">Show</a></td>
     </tr>
 </table>
-<a href="/">Return to main menu</a>
+<br>
+<button onclick="window.location.href = '/'";>Main menu</button>
 </body>
 </html>

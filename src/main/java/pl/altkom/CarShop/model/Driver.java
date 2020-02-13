@@ -17,8 +17,8 @@ public class Driver {
     @Column(length = 40)
     private String lastName;
 
-    //    @OneToMany(cascade = CascadeType.ALL) <- wrzuca wszystkie dane ze wszystkich formularzy
-    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
+//    @OneToMany(cascade = CascadeType.ALL) //<- wrzuca wszystkie dane ze wszystkich formularzy
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "driver_id") // w tabeli route !
     private List<Route> routes = new ArrayList<>(0);
 

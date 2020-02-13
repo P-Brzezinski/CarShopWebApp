@@ -4,7 +4,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity
@@ -27,31 +26,33 @@ public class Route {
     private LocalTime startTime;
 
     @DateTimeFormat(pattern = "HH:mm")
-    private LocalTime endTime;
+    private LocalTime plannedEndTime;
 
     @Column(length = 40)
-    private String startAdress;
+    private String startAddress;
 
     @Column(length = 40)
-    private String endAdress;
+    private String endAddress;
 
-    @Transient
+//    @Transient
+    @Column(length = 10, name = "dID")
     private Long driverId;
 
-    @Transient
+//    @Transient
+    @Column(length = 10, name = "cID")
     private Long carId;
 
     public Route() {
     }
 
-    public Route(String routeName, LocalDate startDate, LocalDate plannedEndDate, LocalTime startTime, LocalTime endTime, String startAdress, String endAdress, Long driverId, Long carId) {
+    public Route(String routeName, LocalDate startDate, LocalDate plannedEndDate, LocalTime startTime, LocalTime plannedEndTime, String startAddress, String endAddress, Long driverId, Long carId) {
         this.routeName = routeName;
         this.startDate = startDate;
         this.plannedEndDate = plannedEndDate;
         this.startTime = startTime;
-        this.endTime = endTime;
-        this.startAdress = startAdress;
-        this.endAdress = endAdress;
+        this.plannedEndTime = plannedEndTime;
+        this.startAddress = startAddress;
+        this.endAddress = endAddress;
         this.driverId = driverId;
         this.carId = carId;
     }
@@ -96,28 +97,28 @@ public class Route {
         this.startTime = startTime;
     }
 
-    public LocalTime getEndTime() {
-        return endTime;
+    public LocalTime getPlannedEndTime() {
+        return plannedEndTime;
     }
 
-    public void setEndTime(LocalTime endTime) {
-        this.endTime = endTime;
+    public void setPlannedEndTime(LocalTime endTime) {
+        this.plannedEndTime = endTime;
     }
 
-    public String getStartAdress() {
-        return startAdress;
+    public String getStartAddress() {
+        return startAddress;
     }
 
-    public void setStartAdress(String startAdress) {
-        this.startAdress = startAdress;
+    public void setStartAddress(String startAdress) {
+        this.startAddress = startAdress;
     }
 
-    public String getEndAdress() {
-        return endAdress;
+    public String getEndAddress() {
+        return endAddress;
     }
 
-    public void setEndAdress(String endAdress) {
-        this.endAdress = endAdress;
+    public void setEndAddress(String endAdress) {
+        this.endAddress = endAdress;
     }
 
     public Long getDriverId() {

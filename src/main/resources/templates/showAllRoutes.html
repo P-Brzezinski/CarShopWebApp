@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Drivers</title>
+    <title>Routes</title>
     <style>
         table, th, td {
             border: 1px solid black;
@@ -11,22 +11,24 @@
             background-color: aquamarine;
         }
     </style>
-
-    <meta charset="UTF-8">
-    <title>All routes for Driver</title>
 </head>
 <body>
-<h1>All routes by Driver:</h1>
+<h1>Routes in database:</h1>
+
 <table>
     <tr>
         <th>ID</th>
-        <th>Route name</th>
+        <th>Name</th>
         <th>Start date</th>
         <th>Start time</th>
-        <th>Start adress</th>
-        <th>End address</th>
-        <th>Planned end date</th>
-        <th>Planned end time</th>
+        <th>Start Address</th>
+        <th>End date</th>
+        <th>End time</th>
+        <th>End Address</th>
+        <th>Driver assigned</th>
+        <th>Car assigned</th>
+        <th>Delete</th>
+        <th>Edit</th>
     </tr>
     <tr th:each="route : ${allRoutes}">
         <td th:text="${route.id}"/>
@@ -34,12 +36,19 @@
         <td th:text="${route.startDate}"/>
         <td th:text="${route.startTime}"/>
         <td th:text="${route.startAddress}"/>
-        <td th:text="${route.endAddress}"/>
         <td th:text="${route.plannedEndDate}"/>
         <td th:text="${route.plannedEndTime}"/>
+        <td th:text="${route.endAddress}"/>
+
+        <td th:text="${route.driverId}"/>
+        <td th:text="${route.carId}"/>
+        <td><a href="#" th:href="@{/deleteRoute(routeId=${route.id})}">Delete</a></td>
+        <td><a href="#" th:href="@{/editRoute(routeId=${route.id})}">Edit</a></td>
     </tr>
 </table>
 <br>
+
 <button onclick="window.location.href = '/';">Main menu</button>
+
 </body>
 </html>

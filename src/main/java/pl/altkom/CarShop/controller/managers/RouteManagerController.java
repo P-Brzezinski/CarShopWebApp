@@ -60,13 +60,26 @@ public class RouteManagerController {
         return "redirect:/";
     }
 
-    @GetMapping("/showRoutesByDriver")
-    public String showRoutesByUserId(final Model model, @RequestParam Long driverId){
+    @GetMapping("/getRoutes")
+    public String getRoutes(final Model model){
+        List<Route> allRoutes = routeDao.findAll();
+        model.addAttribute("allRoutes", allRoutes);
+        return "showAllRoutes";
+    }
+
+    @GetMapping("/showRoutesByDriverId")
+    public String showRoutesByDriverId(final Model model, @RequestParam Long driverId){
 
         Driver driver = driverDao.getOne(driverId);
 
         List<Route> routes = driver.getRoutes();
         model.addAttribute("allRoutes", routes);
         return "showAllRoutesByDriver";
+    }
+
+    @GetMapping("/deleteRoute")
+    public String deleteRoute(@RequestParam("routeId") Long routeId){
+        routeDao.deleteById(routeId);
+        return "showAllRoutes";
     }
 }

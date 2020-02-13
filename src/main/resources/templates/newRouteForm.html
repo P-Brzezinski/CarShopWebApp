@@ -10,7 +10,7 @@
 
     <h2>Route name: <input th:field="*{routeName}" type="text"></h2>
     <h3>Start at:</h3>
-    Adress:<input th:field="*{startAdress}" type="text">
+    Adress:<input th:field="*{startAddress}" type="text">
     <br>
     Date:<input th:field="*{startDate}" type="date">
     <br>
@@ -35,14 +35,15 @@
     </p>
 
     <h3>End At:</h3>
-    Adress:<input th:field="*{endAdress}" type="text">
+    Adress:<input th:field="*{endAddress}" type="text">
     <br>
     Date:<input th:field="*{plannedEndDate}" type="date">
     <br>
-    Time:<input th:field="*{endTime}" type="time">
+    Time:<input th:field="*{plannedEndTime}" type="time">
     <br>
     <input type="submit">
 </form>
-
+<br>
+<button onclick="window.location.href = '/' ;">Main menu</button>
 </body>
 </html>
