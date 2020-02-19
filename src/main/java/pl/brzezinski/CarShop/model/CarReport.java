@@ -1,4 +1,4 @@
-package pl.altkom.CarShop.model;
+package pl.brzezinski.CarShop.model;
 
 import java.util.List;
 

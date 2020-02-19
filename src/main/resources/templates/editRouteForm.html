@@ -7,7 +7,6 @@
 <body>
     <h1>Edit Car:</h1>
     <form method="post" action="#" th:object="${route}" th:action="@{/processEditRouteForm}">
-        <input type="hidden" th:field="*{id}">
 
         <h2>Route name: <input th:field="*{routeName}" type="text"></h2>
         <div>

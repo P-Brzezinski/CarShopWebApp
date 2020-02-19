@@ -1,4 +1,4 @@
-package pl.altkom.CarShop.model;
+package pl.brzezinski.CarShop.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
 

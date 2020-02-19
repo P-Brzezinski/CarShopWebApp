@@ -43,7 +43,7 @@
         <td th:text="${route.driverId}"/>
         <td th:text="${route.carId}"/>
         <td><a href="#" th:href="@{/deleteRoute(routeId=${route.id})}">Delete</a></td>
-        <td><a href="#" th:href="@{/editRoute(routeId=${route.id})}">Edit</a></td>
+        <td><a href="#" th:href="@{/submitRouteForm(routeId=${route.id})}">Edit</a></td>
     </tr>
 </table>
 <br>

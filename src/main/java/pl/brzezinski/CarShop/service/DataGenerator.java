@@ -1,14 +1,14 @@
-package pl.altkom.CarShop.service;
+package pl.brzezinski.CarShop.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.altkom.CarShop.dao.CarRepositoryDataJpaImpl;
-import pl.altkom.CarShop.dao.DriverRepositoryDataJpaImpl;
-import pl.altkom.CarShop.dao.RouteRepositoryDataJpaImpl;
-import pl.altkom.CarShop.model.Car;
-import pl.altkom.CarShop.model.Driver;
-import pl.altkom.CarShop.model.Route;
-import pl.altkom.CarShop.model.enums.Color;
+import pl.brzezinski.CarShop.dao.CarRepositoryDataJpaImpl;
+import pl.brzezinski.CarShop.dao.DriverRepositoryDataJpaImpl;
+import pl.brzezinski.CarShop.dao.RouteRepositoryDataJpaImpl;
+import pl.brzezinski.CarShop.model.Car;
+import pl.brzezinski.CarShop.model.Driver;
+import pl.brzezinski.CarShop.model.Route;
+import pl.brzezinski.CarShop.model.enums.Color;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;

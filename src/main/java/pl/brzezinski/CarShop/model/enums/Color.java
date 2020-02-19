@@ -1,4 +1,4 @@
-package pl.altkom.CarShop.model.enums;
+package pl.brzezinski.CarShop.model.enums;
 
 public enum  Color {
 

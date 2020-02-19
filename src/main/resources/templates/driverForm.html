@@ -6,7 +6,8 @@
 </head>
 <body>
 <h1>Create new driver:</h1>
-<form method="post" action="#" th:object="${driver}" th:action="@{/saveNewDriver}">
+<form method="post" action="#" th:object="${driver}" th:action="@{/saveOrEditDriver}">
+    <input type="hidden" th:field="*{id}">
 
     <p>First name:<input th:field="*{firstName}" type="text"></p>
 

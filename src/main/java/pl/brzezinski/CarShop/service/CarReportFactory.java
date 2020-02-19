@@ -1,14 +1,11 @@
-package pl.altkom.CarShop.service;
+package pl.brzezinski.CarShop.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.altkom.CarShop.dao.CarRepositoryDataJpaImpl;
-import pl.altkom.CarShop.model.Car;
-import pl.altkom.CarShop.model.CarReport;
+import pl.brzezinski.CarShop.dao.CarRepositoryDataJpaImpl;
+import pl.brzezinski.CarShop.model.CarReport;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class CarReportFactory {

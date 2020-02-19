@@ -1,7 +1,7 @@
-package pl.altkom.CarShop.dao;
+package pl.brzezinski.CarShop.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import pl.altkom.CarShop.model.Car;
+import pl.brzezinski.CarShop.model.Car;
 
 import java.time.LocalDate;
 import java.util.List;

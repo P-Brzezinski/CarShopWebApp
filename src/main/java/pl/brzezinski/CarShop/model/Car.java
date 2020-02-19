@@ -1,7 +1,7 @@
-package pl.altkom.CarShop.model;
+package pl.brzezinski.CarShop.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import pl.altkom.CarShop.model.enums.Color;
+import pl.brzezinski.CarShop.model.enums.Color;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

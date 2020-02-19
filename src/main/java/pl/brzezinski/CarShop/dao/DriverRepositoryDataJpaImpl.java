@@ -1,9 +1,7 @@
-package pl.altkom.CarShop.dao;
+package pl.brzezinski.CarShop.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import pl.altkom.CarShop.model.Driver;
-
-import java.util.List;
+import pl.brzezinski.CarShop.model.Driver;
 
 public interface DriverRepositoryDataJpaImpl extends JpaRepository<Driver, Long> {
 

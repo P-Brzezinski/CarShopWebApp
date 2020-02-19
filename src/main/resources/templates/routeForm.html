@@ -7,6 +7,7 @@
 <body>
 <h1>Create New Route Form:</h1>
 <form method="post" action="#" th:object="${route}" th:action="@{/saveRoute}">
+    <input type="hidden" th:field="*{id}">
     <h2>Route name: <input th:field="*{routeName}" type="text"></h2>
     <div>
         <h3>Start at:</h3>

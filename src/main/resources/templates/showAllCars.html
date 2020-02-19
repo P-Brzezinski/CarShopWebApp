@@ -32,7 +32,7 @@
         <p><td th:text="${car.yearOfProduction}"/></p>
         <p><td th:text="${car.VIN}"/></p>
         <td><a href="/deleteCar" th:href="@{/deleteCar(carId=${car.id})}">Delete</a></td>
-        <td><a href="/editCar" th:href="@{/editCar(carId=${car.id})}">Edit</a></td>
+        <td><a href="/editCar" th:href="@{/submitCarForm(carId=${car.id})}">Edit</a></td>
     </tr>
 </table>
 <br>
