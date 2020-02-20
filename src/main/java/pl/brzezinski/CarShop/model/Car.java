@@ -18,28 +18,28 @@ public class Car {
     private Long id;
 
     @NotNull
-    @Size(min = 2, max = 20, message = "{first.inCorrectCarBrandLength}")
+    @Size(min = 2, max = 20, message = "{carError.incorrectCarBrandLength}")
     @Column(length = 20, name = "car_brand")
     private String carBrand;
 
     @NotNull
-    @Size(min = 2, max = 20, message = "{first.inCorrectCarModelLength}")
+    @Size(min = 2, max = 20, message = "{carError.incorrectCarModelLength}")
     @Column(length = 20, name = "car_model")
     private String carModel;
 
     @NotNull
-//    @Size(min = 2, max = 20, message = "{first.icCorrectColorLength}")
+//    @Size(min = 2, max = 20, message = "{carError.incorrectColorLength}")
     @Enumerated(EnumType.STRING)
     @Column(length = 20, name = "car_color")
     private Color color;
 
-    @NotNull(message = "{first.noDate}")
+    @NotNull(message = "{carError.noDate}")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "date")
     private LocalDate yearOfProduction;
 
     @NotNull
-    @Size(min = 17, max = 17, message = "{first.inCorrectVinLength}")
+    @Size(min = 17, max = 17, message = "{carError.incorrectVinLength}")
     @Column(length = 17, name = "VIN_number")
     private String VIN;
 

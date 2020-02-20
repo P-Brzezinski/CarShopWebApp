@@ -41,24 +41,53 @@ public class RouteManagerController {
     }
 
     @PostMapping("/saveRoute")
-    public String processNewRouteForm(@RequestParam(name = "routeId", required = false) Long routeId, final Route route) {
+    public String processNewRouteForm(final Route route) {
 
-        // 1. Pobrac konretnego kierowce - wg id z 'route'
-        Long driverId = route.getDriverId();// tylko dla formularza
-        Driver driver = driverDao.getOne(driverId);
+        if (route.getId() != null) {
+            Route routeFromDao = routeDao.findById(route.getId()).get();
+            routeFromDao.setId(route.getId());
+            routeFromDao.setRouteName(route.getRouteName());
+            routeFromDao.setStartDate(route.getStartDate());
+            routeFromDao.setPlannedEndDate(route.getPlannedEndDate());
+            routeFromDao.setStartTime(route.getStartTime());
+            routeFromDao.setPlannedEndTime(route.getPlannedEndTime());
+            routeFromDao.setStartAddress(route.getStartAddress());
+            routeFromDao.setEndAddress(route.getEndAddress());
 
-        Long carId = route.getCarId();
-        Car car = carDao.getOne(carId);
+            //bez dwóch poniższych setterów Driver Assigned i Car Assigned w tabeli All Roads (w przegladarce) sie nie zmienie,
+            //ale w MySQL już tak, dlaczego?
+            routeFromDao.setDriverId(route.getDriverId());
+            routeFromDao.setCarId(route.getCarId());
 
-        // 2. Dla pobranego kierowcy dodajemy trase i do samochodu trase
-        driver.addRoute(route);
-        car.addRoute(route);
+            Driver driver = driverDao.getOne(route.getDriverId());
+            Car car = carDao.getOne(route.getCarId());
 
-        // 3. zapisujemy trase, kierowce, pojazd
+            //dlaczego po dodaniu nowej trasy stara znika?
+            //nie widać starej trasy w polu 'routes' w modelu Driver
+            driver.addRoute(routeFromDao);
+            car.addRoute(routeFromDao);
 
-        routeDao.save(route); // insert do tabeli Route z driver_id = null
-        driverDao.save(driver); // update na tabeli Route z wpisaniem driver_id
-        carDao.save(car); // update na tabeli Route z wpisaniem car_id
+            routeDao.save(routeFromDao);
+            driverDao.save(driver);
+            carDao.save(car);
+        }else {
+            // 1. Pobrac konretnego kierowce - wg id z 'route'
+            Long driverId = route.getDriverId();// tylko dla formularza
+            Driver driver = driverDao.getOne(driverId);
+
+            Long carId = route.getCarId();
+            Car car = carDao.getOne(carId);
+
+            // 2. Dla pobranego kierowcy dodajemy trase i do samochodu trase
+            driver.addRoute(route);
+            car.addRoute(route);
+
+            // 3. zapisujemy trase, kierowce, pojazd
+
+            routeDao.save(route); // insert do tabeli Route z driver_id = null
+            driverDao.save(driver); // update na tabeli Route z wpisaniem driver_id
+            carDao.save(car); // update na tabeli Route z wpisaniem car_id
+        }
         return "redirect:/";
     }
 

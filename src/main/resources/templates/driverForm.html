@@ -10,13 +10,13 @@
     <input type="hidden" th:field="*{id}">
 
     <p>First name:<input th:field="*{firstName}" type="text"></p>
+    <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First Name Error!</p>
 
     <p>Last name:<input th:field="*{lastName}" type="text"></p>
+    <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last Name Error!</p>
 
     <p><input type="submit" value="Submit"></p>
 </form>
 <button onclick="window.location.href = '/';">Main menu</button>
-
-
 </body>
 </html>

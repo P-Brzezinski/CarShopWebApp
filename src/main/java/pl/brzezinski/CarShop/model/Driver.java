@@ -1,6 +1,8 @@
 package pl.brzezinski.CarShop.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,10 +13,14 @@ public class Driver {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 40)
+    @NotNull
+    @Size(min = 1, max = 20, message = "{driverError.incorrectFirstNameLength}")
+    @Column(length = 20, name = "first_name")
     private String firstName;
 
-    @Column(length = 40)
+    @NotNull
+    @Size(min = 1, max = 20, message = "{driverError.incorrectLastNameLength}")
+    @Column(length = 40, name = "last_name")
     private String lastName;
 
 //    @OneToMany(cascade = CascadeType.ALL) //<- wrzuca wszystkie dane ze wszystkich formularzy
