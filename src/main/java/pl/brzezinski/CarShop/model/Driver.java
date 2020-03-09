@@ -13,12 +13,10 @@ public class Driver {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
     @Size(min = 2, max = 20, message = "{driverFormError.incorrectFirstNameLength}")
     @Column(length = 20, name = "first_name")
     private String firstName;
 
-    @NotNull
     @Size(min = 2, max = 20, message = "{driverFormError.incorrectLastNameLength}")
     @Column(length = 40, name = "last_name")
     private String lastName;

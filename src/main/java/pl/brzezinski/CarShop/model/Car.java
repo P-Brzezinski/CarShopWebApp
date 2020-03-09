@@ -19,12 +19,10 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
     @Size(min = 2, max = 20, message = "{carFormError.incorrectCarBrandLength}")
     @Column(length = 20, name = "car_brand")
     private String carBrand;
 
-    @NotNull
     @Size(min = 2, max = 20, message = "{carFormError.incorrectCarModelLength}")
     @Column(length = 20, name = "car_model")
     private String carModel;
@@ -34,14 +32,11 @@ public class Car {
     @Column(length = 20, name = "car_color")
     private Color color;
 
-    @NotNull(message = "{carFormError.noDate}")
     @Positive(message = "{carFormError.mustBePositive}")
-    @PastOrPresent(message = "{carFormError.dateNotInFuture}")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "date")
     private Integer yearOfProduction;
 
-    @NotNull
     @Size(min = 17, max = 17, message = "{carFormError.incorrectVinLength}")
     @Column(length = 17, name = "VIN_number")
     private String VIN;
