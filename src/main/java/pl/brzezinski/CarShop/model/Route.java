@@ -1,9 +1,11 @@
 package pl.brzezinski.CarShop.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import pl.brzezinski.CarShop.model.validators.CanNotBeEmpty;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import javax.validation.constraints.*;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity
@@ -13,49 +15,56 @@ public class Route {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 40)
+    @Size(min = 1, max = 40, message = "{routeFormError.incorrectRouteNameLength}")
+    @Column(length = 40, name = "route_name")
     private String routeName;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate startDate;
+    @CanNotBeEmpty
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @Column(name = "start_date_time")
+    private LocalDateTime startDateTime;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate plannedEndDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @Column(name = "planned_end_date_time")
+    private LocalDateTime endDateTime;
 
-    @DateTimeFormat(pattern = "HH:mm")
-    private LocalTime startTime;
-
-    @DateTimeFormat(pattern = "HH:mm")
-    private LocalTime plannedEndTime;
-
-    @Column(length = 40)
+    @Size(min = 1, max = 40, message = "{routeFormError.incorrectStartAddressLength}")
+    @Column(length = 40, name = "start_address")
     private String startAddress;
 
-    @Column(length = 40)
+    @Size(min = 1, max = 40, message = "{routeFormError.incorrectEndAddressLength}")
+    @Column(length = 40, name = "end_address")
     private String endAddress;
 
-//    @Transient
-    @Column(length = 10, name = "dID")
+    @CanNotBeEmpty
+    @Column(length = 1, name = "driver_ID")
     private Long driverId;
 
-//    @Transient
-    @Column(length = 10, name = "cID")
+    @CanNotBeEmpty
+    @Column(length = 1, name = "car_ID")
     private Long carId;
+
+    @Column(name = "distance_in_meters")
+    private Long distance;
+
+    @Column(name = "travelTimeInSeconds")
+    private LocalTime travelTime;
+
+    @Column(name = "is_done")
+    private boolean isDone;
 
     public Route() {
     }
 
-    public Route(String routeName, LocalDate startDate, LocalDate plannedEndDate, LocalTime startTime, LocalTime plannedEndTime, String startAddress, String endAddress, Long driverId, Long carId) {
+    public Route(String routeName, LocalDateTime startDateTime, String startAddress, String endAddress, Long driverId, Long carId) {
         this.routeName = routeName;
-        this.startDate = startDate;
-        this.plannedEndDate = plannedEndDate;
-        this.startTime = startTime;
-        this.plannedEndTime = plannedEndTime;
+        this.startDateTime = startDateTime;
         this.startAddress = startAddress;
         this.endAddress = endAddress;
         this.driverId = driverId;
         this.carId = carId;
     }
+
 
     public Long getId() {
         return id;
@@ -73,36 +82,20 @@ public class Route {
         this.routeName = routeName;
     }
 
-    public LocalDate getStartDate() {
-        return startDate;
+    public LocalDateTime getStartDateTime() {
+        return startDateTime;
     }
 
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
+    public void setStartDateTime(LocalDateTime startDateTime) {
+        this.startDateTime = startDateTime;
     }
 
-    public LocalDate getPlannedEndDate() {
-        return plannedEndDate;
+    public LocalDateTime getEndDateTime() {
+        return endDateTime;
     }
 
-    public void setPlannedEndDate(LocalDate plannedEndDate) {
-        this.plannedEndDate = plannedEndDate;
-    }
-
-    public LocalTime getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(LocalTime startTime) {
-        this.startTime = startTime;
-    }
-
-    public LocalTime getPlannedEndTime() {
-        return plannedEndTime;
-    }
-
-    public void setPlannedEndTime(LocalTime endTime) {
-        this.plannedEndTime = endTime;
+    public void setEndDateTime(LocalDateTime plannedEndDateTime) {
+        this.endDateTime = plannedEndDateTime;
     }
 
     public String getStartAddress() {
@@ -135,5 +128,46 @@ public class Route {
 
     public void setCarId(Long carId) {
         this.carId = carId;
+    }
+
+    public Long getDistance() {
+        return distance;
+    }
+
+    public void setDistance(Long distance) {
+        this.distance = distance;
+    }
+
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public void setDone(boolean done) {
+        isDone = done;
+    }
+
+    public LocalTime getTravelTime() {
+        return travelTime;
+    }
+
+    public void setTravelTime(LocalTime travelTimeInSeconds) {
+        this.travelTime = travelTimeInSeconds;
+    }
+
+    @Override
+    public String toString() {
+        return "Route{" +
+                "id=" + id +
+                ", routeName='" + routeName + '\'' +
+                ", startDateTime=" + startDateTime +
+                ", endDateTime=" + endDateTime +
+                ", startAddress='" + startAddress + '\'' +
+                ", endAddress='" + endAddress + '\'' +
+                ", driverId=" + driverId +
+                ", carId=" + carId +
+                ", distance=" + distance +
+                ", travelTimeInSeconds=" + travelTime +
+                ", isDone=" + isDone +
+                '}';
     }
 }

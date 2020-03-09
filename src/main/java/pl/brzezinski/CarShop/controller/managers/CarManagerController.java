@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.brzezinski.CarShop.dao.CarRepositoryDataJpaImpl;
 import pl.brzezinski.CarShop.model.Car;
+import pl.brzezinski.CarShop.model.Route;
 import pl.brzezinski.CarShop.model.enums.Color;
 
 import javax.validation.Valid;
@@ -26,13 +27,14 @@ public class CarManagerController {
             car = carDao.getOne(carId);
             model.addAttribute(car);
         }
-        model.addAttribute("colorModel", Color.values());
+        model.addAttribute("colors", Color.values());
         return "carForm";
     }
 
     @PostMapping("/saveOrEditCar")
-    public String saveOrEditCar(@Valid Car car, BindingResult bindingResult) {
+    public String saveOrEditCar(@Valid Car car, BindingResult bindingResult, final Model model) {
         if (bindingResult.hasErrors()){
+            model.addAttribute("colors", Color.values());
             return "carForm";
         }
         carDao.save(car);
@@ -50,5 +52,13 @@ public class CarManagerController {
         List<Car> allCars = carDao.findAll();
         model.addAttribute("cars", allCars);
         return "showAllCars";
+    }
+
+    @GetMapping("/showCarAssignedRoutes")
+    public String showAssignedRoutes(@RequestParam(name = "carId") Long carId, final Model model){
+        Car car = carDao.getOne(carId);
+        List<Route> routes = car.getRoutes();
+        model.addAttribute("routes", routes);
+        return "routesAssignedToCar";
     }
 }

@@ -14,16 +14,18 @@ public class Driver {
     private Long id;
 
     @NotNull
-    @Size(min = 1, max = 20, message = "{driverError.incorrectFirstNameLength}")
+    @Size(min = 2, max = 20, message = "{driverFormError.incorrectFirstNameLength}")
     @Column(length = 20, name = "first_name")
     private String firstName;
 
     @NotNull
-    @Size(min = 1, max = 20, message = "{driverError.incorrectLastNameLength}")
+    @Size(min = 2, max = 20, message = "{driverFormError.incorrectLastNameLength}")
     @Column(length = 40, name = "last_name")
     private String lastName;
 
-//    @OneToMany(cascade = CascadeType.ALL) //<- wrzuca wszystkie dane ze wszystkich formularzy
+    @Column(name = "distance_taken")
+    private Long distanceTaken;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "driver_id") // w tabeli route !
     private List<Route> routes = new ArrayList<>(0);
@@ -66,5 +68,13 @@ public class Driver {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Long getDistanceTaken() {
+        return distanceTaken;
+    }
+
+    public void setDistanceTaken(Long distanceTaken) {
+        this.distanceTaken = distanceTaken;
     }
 }

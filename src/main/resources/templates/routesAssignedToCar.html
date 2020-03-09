@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Drivers</title>
+    <title>Routes Assigned to Car</title>
     <style>
         table, th, td {
             border: 1px solid black;
@@ -11,36 +11,33 @@
             background-color: aquamarine;
         }
     </style>
-
-    <meta charset="UTF-8">
-    <title>All routes for Driver</title>
 </head>
 <body>
-<h1>All routes by Driver:</h1>
+<h1>Routes assigned to the Car:</h1>
 <table>
     <tr>
         <th>ID</th>
         <th>Route name</th>
-        <th>Start date</th>
-        <th>Start time</th>
-        <th>Start adress</th>
+        <th>Start date and time</th>
+        <th>Start address</th>
+        <th>End date and time</th>
         <th>End address</th>
-        <th>Planned end date</th>
-        <th>Planned end time</th>
+        <th>Distance</th>
+        <th>Planned time</th>
     </tr>
-    <tr th:each="route : ${allRoutes}">
+    <tr th:each="route : ${routes}">
         <td th:text="${route.id}"/>
         <td th:text="${route.routeName}"/>
-        <td th:text="${route.startDate}"/>
-        <td th:text="${route.startTime}"/>
+        <td th:text="${route.startDateTime}"/>
         <td th:text="${route.startAddress}"/>
+        <td th:text="${route.endDateTime}"/>
         <td th:text="${route.endAddress}"/>
-        <td th:text="${route.plannedEndDate}"/>
-        <td th:text="${route.plannedEndTime}"/>
+        <td th:text="${route.distance}"/>
+        <td th:text="${route.travelTime}"/>
     </tr>
 </table>
 <br>
-<button onclick="window.location.href = '/showAllDrivers';">Back</button>
+<button onclick="window.location.href = '/showAllCars';">Back</button>
 <br><br>
 <button onclick="window.location.href = '/';">Main menu</button>
 </body>

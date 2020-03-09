@@ -3,6 +3,7 @@ package pl.brzezinski.CarShop.controller.managers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.brzezinski.CarShop.dao.CarRepositoryDataJpaImpl;
 import pl.brzezinski.CarShop.dao.DriverRepositoryDataJpaImpl;
@@ -10,7 +11,10 @@ import pl.brzezinski.CarShop.dao.RouteRepositoryDataJpaImpl;
 import pl.brzezinski.CarShop.model.Car;
 import pl.brzezinski.CarShop.model.Driver;
 import pl.brzezinski.CarShop.model.Route;
+import pl.brzezinski.CarShop.service.tomTomApi.TomTomApi;
 
+import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -23,36 +27,47 @@ public class RouteManagerController {
     @Autowired
     private RouteRepositoryDataJpaImpl routeDao;
 
+    private TomTomApi tomTomApi = new TomTomApi();
+
+    @GetMapping("/my-map")
+    public String map(){
+        return "my-map";
+    }
+
     @GetMapping("/submitRouteForm")
     public String submitRouteForm(@RequestParam(name = "routeId", required = false) Long routeId, Route route, final Model model) {
         List<Driver> allDrivers = driverDao.findAll();
         model.addAttribute("allDrivers", allDrivers);
-
         List<Car> allCars = carDao.findAll();
         model.addAttribute("allCars", allCars);
-
         if (routeId != null){
             route = routeDao.findById(routeId).get();
             route.setId(routeId);
             model.addAttribute(route);
         }
-
         return "routeForm";
     }
 
+    //TODO make this method shorter!
     @PostMapping("/saveRoute")
-    public String processNewRouteForm(final Route route) {
+    public String processNewRouteForm(@Valid Route route, BindingResult bindingResult, final Model model) throws IOException {
+        if(bindingResult.hasErrors()){
+            List<Driver> allDrivers = driverDao.findAll();
+            model.addAttribute("allDrivers", allDrivers);
+            List<Car> allCars = carDao.findAll();
+            model.addAttribute("allCars", allCars);
+            return "routeForm";
+        }
 
         if (route.getId() != null) {
             Route routeFromDao = routeDao.findById(route.getId()).get();
             routeFromDao.setId(route.getId());
             routeFromDao.setRouteName(route.getRouteName());
-            routeFromDao.setStartDate(route.getStartDate());
-            routeFromDao.setPlannedEndDate(route.getPlannedEndDate());
-            routeFromDao.setStartTime(route.getStartTime());
-            routeFromDao.setPlannedEndTime(route.getPlannedEndTime());
+            routeFromDao.setStartDateTime(route.getStartDateTime());
             routeFromDao.setStartAddress(route.getStartAddress());
             routeFromDao.setEndAddress(route.getEndAddress());
+
+            tomTomApi.processRouteWithDataFromTomTom(route);
 
             //bez dwóch poniższych setterów Driver Assigned i Car Assigned w tabeli All Roads (w przegladarce) sie nie zmienie,
             //ale w MySQL już tak, dlaczego?
@@ -82,6 +97,8 @@ public class RouteManagerController {
             driver.addRoute(route);
             car.addRoute(route);
 
+            tomTomApi.processRouteWithDataFromTomTom(route);
+
             // 3. zapisujemy trase, kierowce, pojazd
 
             routeDao.save(route); // insert do tabeli Route z driver_id = null
@@ -104,25 +121,20 @@ public class RouteManagerController {
         return "redirect:/showAllRoutes";
     }
 
-    @GetMapping("/editRoute")
-    public String editRoute(@RequestParam Long routeId, Route route, final Model model) {
-
+    @GetMapping("/markAsDone")
+    public String markAsDone(@RequestParam Long routeId){
         List<Driver> allDrivers = driverDao.findAll();
-        model.addAttribute("allDrivers", allDrivers);
-
-        List<Car> allCars = carDao.findAll();
-        model.addAttribute("allCars", allCars);
-
-        route = routeDao.getOne(routeId);
-        route.setId(routeId);
-        model.addAttribute(route);
-
-        return "editRouteForm";
-    }
-
-    @PostMapping("/processEditRouteForm")
-    public String processEditRouteForm(Route route) {
-        routeDao.save(route);
-        return "redirect:/";
+        List<Route> allRoutes;
+        for (Driver driver : allDrivers){
+            allRoutes = driver.getRoutes();
+            for (Route route : allRoutes){
+                if (route.getId() == routeId){
+                    Long sum = Long.sum(driver.getDistanceTaken(), route.getDistance());
+                    driver.setDistanceTaken(sum);
+                    driverDao.save(driver);
+                }
+            }
+        }
+        return "redirect:/showAllRoutes";
     }
 }

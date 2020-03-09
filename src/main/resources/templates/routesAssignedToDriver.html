@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Routes</title>
+    <title>Routes Assigned to Driver</title>
     <style>
         table, th, td {
             border: 1px solid black;
@@ -13,23 +13,17 @@
     </style>
 </head>
 <body>
-<h1>Routes in database:</h1>
-
+<h1>Routes assigned to the Driver:</h1>
 <table>
     <tr>
         <th>ID</th>
-        <th>Name</th>
+        <th>Route name</th>
         <th>Start date and time</th>
-        <th>Start Address</th>
+        <th>Start address</th>
         <th>End date and time</th>
-        <th>End Address</th>
+        <th>End address</th>
         <th>Distance</th>
         <th>Planned time</th>
-        <th>Driver assigned</th>
-        <th>Car assigned</th>
-        <th>Done?</th>
-        <th>Delete</th>
-        <th>Edit</th>
     </tr>
     <tr th:each="route : ${allRoutes}">
         <td th:text="${route.id}"/>
@@ -38,18 +32,13 @@
         <td th:text="${route.startAddress}"/>
         <td th:text="${route.endDateTime}"/>
         <td th:text="${route.endAddress}"/>
-        <td th:text="${route.getDistance()}"/>
-        <td th:text="${route.getTravelTime()}"/>
-        <td th:text="${route.driverId}"/>
-        <td th:text="${route.carId}"/>
-        <td><a href="#" th:href="@{/markAsDone(routeId=${route.id})}">Yes</a></td>
-        <td><a href="#" th:href="@{/deleteRoute(routeId=${route.id})}">Delete</a></td>
-        <td><a href="#" th:href="@{/submitRouteForm(routeId=${route.id})}">Edit</a></td>
+        <td th:text="${route.distance}"/>
+        <td th:text="${route.travelTime}"/>
     </tr>
 </table>
 <br>
-
+<button onclick="window.location.href = '/showAllDrivers';">Back</button>
+<br><br>
 <button onclick="window.location.href = '/';">Main menu</button>
-
 </body>
 </html>

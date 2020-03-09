@@ -21,18 +21,20 @@
         <th>Color</th>
         <th>Year</th>
         <th>VIN</th>
-        <th>Remove Car</th>
+        <th>Show Assigned Routes</th>
         <th>Edit Car</th>
+        <th>Remove Car</th>
     </tr>
     <tr th:each="car: ${cars}">
-        <p><td th:text="${car.id}"/></p>
-        <p><td th:text="${car.carBrand}"/></p>
-        <p><td th:text="${car.carModel}"/></p>
-        <p><td th:text="${car.color.name().toLowerCase()}"/></p>
-        <p><td th:text="${car.yearOfProduction}"/></p>
-        <p><td th:text="${car.VIN}"/></p>
-        <td><a href="/deleteCar" th:href="@{/deleteCar(carId=${car.id})}">Delete</a></td>
-        <td><a href="/editCar" th:href="@{/submitCarForm(carId=${car.id})}">Edit</a></td>
+        <td th:text="${car.id}"/>
+        <td th:text="${car.carBrand}"/>
+        <td th:text="${car.carModel}"/>
+        <td th:text="${car.color.name().toLowerCase()}"/>
+        <td th:text="${car.yearOfProduction}"/>
+        <td th:text="${car.VIN}"/>
+        <td><a href="#" th:href="@{/showCarAssignedRoutes(carId=${car.id})}">Routes</a></td>
+        <td><a href="#" th:href="@{/submitCarForm(carId=${car.id})}">Edit</a></td>
+        <td><a href="#" th:href="@{/deleteCar(carId=${car.id})}">Delete</a></td>
     </tr>
 </table>
 <br>

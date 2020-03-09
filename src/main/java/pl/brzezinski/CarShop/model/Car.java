@@ -2,11 +2,13 @@ package pl.brzezinski.CarShop.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.brzezinski.CarShop.model.enums.Color;
+import pl.brzezinski.CarShop.model.validators.CanNotBeEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,28 +20,29 @@ public class Car {
     private Long id;
 
     @NotNull
-    @Size(min = 2, max = 20, message = "{carError.incorrectCarBrandLength}")
+    @Size(min = 2, max = 20, message = "{carFormError.incorrectCarBrandLength}")
     @Column(length = 20, name = "car_brand")
     private String carBrand;
 
     @NotNull
-    @Size(min = 2, max = 20, message = "{carError.incorrectCarModelLength}")
+    @Size(min = 2, max = 20, message = "{carFormError.incorrectCarModelLength}")
     @Column(length = 20, name = "car_model")
     private String carModel;
 
-    @NotNull
-//    @Size(min = 2, max = 20, message = "{carError.incorrectColorLength}")
+    @CanNotBeEmpty
     @Enumerated(EnumType.STRING)
     @Column(length = 20, name = "car_color")
     private Color color;
 
-    @NotNull(message = "{carError.noDate}")
+    @NotNull(message = "{carFormError.noDate}")
+    @Positive(message = "{carFormError.mustBePositive}")
+    @PastOrPresent(message = "{carFormError.dateNotInFuture}")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "date")
-    private LocalDate yearOfProduction;
+    private Integer yearOfProduction;
 
     @NotNull
-    @Size(min = 17, max = 17, message = "{carError.incorrectVinLength}")
+    @Size(min = 17, max = 17, message = "{carFormError.incorrectVinLength}")
     @Column(length = 17, name = "VIN_number")
     private String VIN;
 
@@ -50,7 +53,7 @@ public class Car {
     public Car() {
     }
 
-    public Car(String carBrand, String carModel, Color color, LocalDate yearOfProduction, String VIN) {
+    public Car(String carBrand, String carModel, Color color, Integer yearOfProduction, String VIN) {
         this.carBrand = carBrand;
         this.carModel = carModel;
         this.color = color;
@@ -90,11 +93,11 @@ public class Car {
         this.color = color;
     }
 
-    public LocalDate getYearOfProduction() {
+    public Integer getYearOfProduction() {
         return yearOfProduction;
     }
 
-    public void setYearOfProduction(LocalDate yearOfProduction) {
+    public void setYearOfProduction(Integer yearOfProduction) {
         this.yearOfProduction = yearOfProduction;
     }
 
@@ -104,6 +107,10 @@ public class Car {
 
     public void setVIN(String VIN) {
         this.VIN = VIN;
+    }
+
+    public List<Route> getRoutes() {
+        return routes;
     }
 
     @Override

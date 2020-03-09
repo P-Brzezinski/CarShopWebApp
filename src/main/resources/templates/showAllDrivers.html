@@ -19,17 +19,19 @@
         <th>ID</th>
         <th>First Name</th>
         <th>Last Name</th>
+        <th>Distance taken</th>
         <th>Edit Driver</th>
         <th>Show assigned Routes</th>
         <th>Delete Driver</th>
     </tr>
     <tr th:each="driver : ${allDriversList}">
-        <td th:text="*{driver.id}"></td>
-        <td th:text="*{driver.firstName}"></td>
-        <td th:text="*{driver.lastName}"></td>
+        <td th:text="*{driver.id}"/>
+        <td th:text="*{driver.firstName}"/>
+        <td th:text="*{driver.lastName}"/>
+        <td th:text="*{driver.distanceTaken}"/>
         <td><a href="#" th:href="@{/submitDriverForm(driverId=${driver.id})}">Edit</a></td>
-        <td><a href="#" th:href="@{/showRoutesByDriverId(driverId=${driver.id})}">Show</a></td>
-        <td><a href="#" th:href="@{/deleteDriverById(driverId=${driver.id})}">Delete</a></td>
+        <td><a href="#" th:href="@{/showDriverAssignedRoutes(driverId=${driver.id})}">Routes</a></td>
+        <td><a href="#" th:href="@{/deleteDriver(driverId=${driver.id})}">Delete</a></td>
     </tr>
 </table>
 <br>

@@ -8,15 +8,23 @@
 <h1>Create New Route Form:</h1>
 <form method="post" action="#" th:object="${route}" th:action="@{/saveRoute}">
     <input type="hidden" th:field="*{id}">
+
     <h2>Route name: <input th:field="*{routeName}" type="text"></h2>
+    <div th:if="${#fields.hasErrors('routeName')}" th:errors="*{routeName}"></div>
+
     <div>
         <h3>Start at:</h3>
+
         <div>Address: <input th:field="*{startAddress}" type="text"></div>
-        <div>Date:<input th:field="*{startDate}" type="date"></div>
-        <div>Time:<input th:field="*{startTime}" type="time"></div>
+        <div th:if="${#fields.hasErrors('startAddress')}" th:errors="*{startAddress}"></div>
+
+        <div>Date:<input th:field="*{startDateTime}" type="datetime-local"></div>
+        <div th:if="${#fields.hasErrors('startDateTime')}" th:errors="*{startDateTime}"></div>
+
     </div>
     <div>
         <h3>Driver and Car:</h3>
+
             <div>Add driver:
                 <select th:field="*{driverId}">
                     <option value="">SELECT</option>
@@ -24,6 +32,7 @@
                             th:value="${driver.id}"
                             th:utext="${driver.lastName}"/>
                 </select>
+                <div th:if="${#fields.hasErrors('driverId')}" th:errors="*{driverId}"></div>
             </div>
         <br>
             <div>Add car:
@@ -33,18 +42,25 @@
                             th:value="${car.id}"
                             th:utext="${car.carModel}"/>
                 </select>
+                <div th:if="${#fields.hasErrors('carId')}" th:errors="*{carId}"></div>
             </div>
     </div>
     <div>
         <h3>End at:</h3>
+
         <div>Adress:<input th:field="*{endAddress}" type="text"></div>
-        <div>Date:<input th:field="*{plannedEndDate}" type="date"></div>
-        <div>Time:<input th:field="*{plannedEndTime}" type="time"></div>
+        <div th:if="${#fields.hasErrors('endAddress')}" th:errors="*{endAddress}"></div>
+
     </div>
     <br><br>
     <input type="submit" value="Submit">
 </form>
 <br>
 <button onclick="window.location.href = '/' ;">Main menu</button>
+<br><br>
+<p>Examples:</p>
+<p>51.117559,17.041687 - "Google Poland", "Bema Plaza, 50-240 Wroclaw" <br>
+    48.149222,11.537171 - "Google Germany", "Erika-Mann-Straße 33, 80636 München, Germany" <br>
+    45.486909,9.189454 - "Google Italy", "Via Federico Confalonieri, 4, 20124 Milano MI, Włochy"</p>
 </body>
 </html>

@@ -21,7 +21,7 @@ public class DriverManagerController {
     private DriverRepositoryDataJpaImpl driverDao;
 
     @GetMapping("/submitDriverForm")
-    public String createOrEditDriver(@RequestParam(name = "driverId", required = false) Long driverId, final Model model, Driver driver){
+    public String submitRouteForm(@RequestParam(name = "driverId", required = false) Long driverId, final Model model, Driver driver){
         if (driverId != null){
             driver = driverDao.getOne(driverId);
             model.addAttribute(driver);
@@ -45,21 +45,16 @@ public class DriverManagerController {
         return "showAllDrivers";
     }
 
-    @GetMapping("/showRoutesByDriverId")
-    public String showRoutesByDriverId(final Model model, @RequestParam(name = "driverId") Long driverId) {
+    @GetMapping("/showDriverAssignedRoutes")
+    public String showAssignedRoutes(final Model model, @RequestParam(name = "driverId") Long driverId) {
         Driver driver = driverDao.getOne(driverId);
         List<Route> routes = driver.getRoutes();
         model.addAttribute("allRoutes", routes);
-
-        for (Route route : routes) {
-            System.out.println(route.getRouteName());
-        }
-
-        return "showAllRoutesByDriver";
+        return "routesAssignedToDriver";
     }
 
-    @GetMapping("/deleteDriverById")
-    public String deleteDriverById(@RequestParam(name = "driverId") Long driverId){
+    @GetMapping("/deleteDriver")
+    public String deleteDriver(@RequestParam(name = "driverId") Long driverId){
         driverDao.deleteById(driverId);
         return "redirect:showAllDrivers";
     }

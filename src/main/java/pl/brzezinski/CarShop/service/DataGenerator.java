@@ -9,10 +9,11 @@ import pl.brzezinski.CarShop.model.Car;
 import pl.brzezinski.CarShop.model.Driver;
 import pl.brzezinski.CarShop.model.Route;
 import pl.brzezinski.CarShop.model.enums.Color;
+import pl.brzezinski.CarShop.service.tomTomApi.TomTomApi;
 
 import javax.annotation.PostConstruct;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.io.IOException;
+import java.time.LocalDateTime;
 
 @Service
 public class DataGenerator {
@@ -24,73 +25,69 @@ public class DataGenerator {
     @Autowired
     private RouteRepositoryDataJpaImpl routeDao;
 
+    TomTomApi tomTomApi = new TomTomApi();
+
     Driver driverOne = new Driver("Jan", "Kowalski");
     Driver driverTwo = new Driver("Adam", "Adamski");
 
-    Car carOne = new Car("Audi", "Astra", Color.RED, LocalDate.of(2006, 10, 12), "33344455566677788");
-    Car carTwo = new Car("Toyota", "RAV4", Color.GREY, LocalDate.of(2005, 8, 30), "33344455566677788");
+    Car carOne = new Car("Audi", "Astra", Color.RED, 2020, "33344455566677788");
+    Car carTwo = new Car("Toyota", "RAV4", Color.GREY, 2005, "33344455566677788");
 
     @PostConstruct
     public void createCarData() {
         carDao.save(carOne);
         carDao.save(carTwo);
-        carDao.save(new Car("Opel", "Corsa", Color.RED, LocalDate.of(2003, 12, 21), "33344455566677788"));
-        carDao.save(new Car("Toyota", "RAV4", Color.GREY, LocalDate.of(2005, 8, 30), "33344455566677788"));
-        carDao.save(new Car("Volkswagen", "Golf", Color.BLACK, LocalDate.of(1998, 3, 27), "33344455566677788"));
-        carDao.save(new Car("Skoda", "Fabia", Color.BLUE, LocalDate.of(1995, 1, 3), "33344455566677788"));
-        carDao.save(new Car("Seat", "Cordoba", Color.GREEN, LocalDate.of(2003, 8, 4), "33344455566677788"));
-        carDao.save(new Car("Ferrari", "Astra", Color.RED, LocalDate.of(2019, 1, 12), "33344455566677788"));
-        carDao.save(new Car("Ferrari", "Testarossa", Color.WHITE, LocalDate.of(2005, 8, 4), "33344455566677788"));
-        carDao.save(new Car("Ferrari", "California", Color.BLACK, LocalDate.of(2012, 5, 12), "33344455566677788"));
-        carDao.save(new Car("Land Rover", "Vellar", Color.GREY, LocalDate.of(2020, 1, 12), "33344455566677788"));
-        carDao.save(new Car("Peugot", "206", Color.GREEN, LocalDate.of(2001, 1, 12), "33344455566677788"));
-        carDao.save(new Car("Peugot", "207", Color.WHITE, LocalDate.of(2002, 11, 12), "33344455566677788"));
-        carDao.save(new Car("Ford", "Focus", Color.BLUE, LocalDate.of(2012, 11, 12), "33344455566677788"));
-        carDao.save(new Car("Ford", "Mustand", Color.YELLOW, LocalDate.of(2016, 1, 12), "33344455566677788"));
+        carDao.save(new Car("Opel", "Corsa", Color.RED, 2003, "33344455566677788"));
+        carDao.save(new Car("Toyota", "RAV4", Color.GREY, 2005, "33344455566677788"));
+        carDao.save(new Car("Volkswagen", "Golf", Color.BLACK, 1998, "33344455566677788"));
+        carDao.save(new Car("Skoda", "Fabia", Color.BLUE, 1995, "33344455566677788"));
+        carDao.save(new Car("Seat", "Cordoba", Color.GREEN, 2003, "33344455566677788"));
+        carDao.save(new Car("Ferrari", "Astra", Color.RED, 2019, "33344455566677788"));
+        carDao.save(new Car("Ferrari", "Testarossa", Color.WHITE, 2005, "33344455566677788"));
+        carDao.save(new Car("Ferrari", "California", Color.BLACK, 2012, "33344455566677788"));
+        carDao.save(new Car("Land Rover", "Vellar", Color.GREY, 2020, "33344455566677788"));
+        carDao.save(new Car("Peugot", "206", Color.GREEN, 2001, "33344455566677788"));
+        carDao.save(new Car("Peugot", "207", Color.WHITE, 2002, "33344455566677788"));
+        carDao.save(new Car("Ford", "Focus", Color.BLUE, 2012, "33344455566677788"));
+        carDao.save(new Car("Ford", "Mustand", Color.YELLOW, 2016, "33344455566677788"));
     }
 
     @PostConstruct
     public void createDriversData() {
         driverDao.save(driverOne);
+        driverOne.setDistanceTaken(Long.valueOf(0));
         driverDao.save(driverTwo);
-
-
+        driverTwo.setDistanceTaken(Long.valueOf(0));
     }
 
     //TODO split method to smaller methods
     @PostConstruct
-    public void createRouteDataAndAssignToDriverAndCar(){
-        Route routeOne = (new Route("Wrocław -> Moscow",
-                LocalDate.of(2020, 2, 14),
-                LocalDate.of(2020, 2, 16),
-                LocalTime.of(14, 0),
-                LocalTime.of(16, 0),
-                "Kwiatkowskiego 2",
-                "Puttin Street 6",
-                Long.valueOf(driverOne.getId()),
-                Long.valueOf(carOne.getId())));
+    public void createRouteDataAndAssignToDriverAndCar() throws IOException {
 
+        Route routeOne = new Route("Google Poland -> Google Russia",
+                LocalDateTime.of(2021, 1, 1, 12,00),
+                "51.117559,17.041687",
+                "55.746883,37.626551",
+                driverOne.getId(),
+                carOne.getId());
+
+        tomTomApi.processRouteWithDataFromTomTom(routeOne);
         driverOne.addRoute(routeOne);
         carOne.addRoute(routeOne);
-
         routeDao.save(routeOne);
         driverDao.save(driverOne);
         carDao.save(carOne);
 
-        Route routeTwo = (new Route("Barcelona -> Rome",
-                LocalDate.of(2020, 3, 21),
-                LocalDate.of(2020, 4, 1),
-                LocalTime.of(0, 0),
-                LocalTime.of(12, 45),
-                "Bilbao Street 2",
-                "Julius Cesar Street 4",
+        Route routeTwo = new Route("Google Poland -> Google France",
+                LocalDateTime.of(2021, 12, 10, 12, 0),
+                "51.117559,17.041687",
+                "48.877135,2.330230",
                 Long.valueOf(driverTwo.getId()),
-                Long.valueOf(carTwo.getId())));
+                Long.valueOf(carTwo.getId()));
 
-
+        tomTomApi.processRouteWithDataFromTomTom(routeTwo);
         driverTwo.addRoute(routeTwo);
         carTwo.addRoute(routeTwo);
-
         routeDao.save(routeTwo);
         driverDao.save(driverTwo);
         carDao.save(carTwo);
