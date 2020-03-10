@@ -21,7 +21,7 @@ public class CarReportContoller {
         return "report";
     }
 
-    @GetMapping("/search")
+    @GetMapping("/searchBy")
     public String returnForm(){
         return "searchByCriteria";
     }

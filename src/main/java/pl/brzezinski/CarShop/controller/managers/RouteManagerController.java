@@ -11,7 +11,7 @@ import pl.brzezinski.CarShop.dao.RouteRepositoryDataJpaImpl;
 import pl.brzezinski.CarShop.model.Car;
 import pl.brzezinski.CarShop.model.Driver;
 import pl.brzezinski.CarShop.model.Route;
-import pl.brzezinski.CarShop.service.tomTomApi.TomTomApi;
+import pl.brzezinski.CarShop.service.tomTomApi.TomTomDirectionsApi;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -27,7 +27,7 @@ public class RouteManagerController {
     @Autowired
     private RouteRepositoryDataJpaImpl routeDao;
 
-    private TomTomApi tomTomApi = new TomTomApi();
+    private TomTomDirectionsApi tomTomDirectionsApi = new TomTomDirectionsApi();
 
     @GetMapping("/my-map")
     public String map(){
@@ -67,7 +67,7 @@ public class RouteManagerController {
             routeFromDao.setStartAddress(route.getStartAddress());
             routeFromDao.setEndAddress(route.getEndAddress());
 
-            tomTomApi.processRouteWithDataFromTomTom(route);
+            tomTomDirectionsApi.processRouteWithDataFromTomTom(route);
 
             //bez dwóch poniższych setterów Driver Assigned i Car Assigned w tabeli All Roads (w przegladarce) sie nie zmienie,
             //ale w MySQL już tak, dlaczego?
@@ -97,7 +97,7 @@ public class RouteManagerController {
             driver.addRoute(route);
             car.addRoute(route);
 
-            tomTomApi.processRouteWithDataFromTomTom(route);
+            tomTomDirectionsApi.processRouteWithDataFromTomTom(route);
 
             // 3. zapisujemy trase, kierowce, pojazd
 

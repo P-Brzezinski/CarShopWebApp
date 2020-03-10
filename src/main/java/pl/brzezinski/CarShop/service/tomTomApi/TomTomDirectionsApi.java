@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public class TomTomApi {
+public class TomTomDirectionsApi {
 
     private static final String KEY_FOR_TOMTOM = "U5AOrrRaKTNr4xW0fSqZt3Gyou9AJwiS";
     private ProcessDataFromTomTomApi process = new ProcessDataFromTomTomApi();
