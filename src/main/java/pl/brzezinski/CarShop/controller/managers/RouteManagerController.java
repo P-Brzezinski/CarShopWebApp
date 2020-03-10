@@ -29,11 +29,6 @@ public class RouteManagerController {
 
     private TomTomDirectionsApi tomTomDirectionsApi = new TomTomDirectionsApi();
 
-    @GetMapping("/my-map")
-    public String map(){
-        return "my-map";
-    }
-
     @GetMapping("/submitRouteForm")
     public String submitRouteForm(@RequestParam(name = "routeId", required = false) Long routeId, Route route, final Model model) {
         List<Driver> allDrivers = driverDao.findAll();
