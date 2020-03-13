@@ -5,4 +5,7 @@ import pl.brzezinski.CarShop.model.Driver;
 
 public interface DriverRepositoryDataJpaImpl extends JpaRepository<Driver, Long> {
 
+    Driver findDriverByFirstName(String firstName);
+
+    Driver findDriverByLastName(String lastName);
 }

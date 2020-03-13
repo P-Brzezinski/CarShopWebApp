@@ -19,7 +19,7 @@ import java.io.*;
 import java.util.List;
 
 @Controller
-public class RouteController {
+public class RouteControllerForSearchApi {
 
     private TomTomSearchApi tomTomSearchApi = new TomTomSearchApi();
     private TomTomDirectionsApi tomTomDirectionsApi = new TomTomDirectionsApi();
@@ -42,7 +42,7 @@ public class RouteController {
         model.addAttribute("allDrivers", allDrivers);
         model.addAttribute("allCars", allCars);
         System.out.println("newRouteForm >>>>>>>>>>>>>>>>>>>>>>>>>>>>>" +  route.toString());
-        return "newRouteForm";
+        return "routeFormForSearchApi";
     }
 
     @GetMapping("/searchStartAddress")
@@ -58,7 +58,7 @@ public class RouteController {
         model.addAttribute("startAddressList", startAddressList);
         model.addAttribute(route);
         System.out.println("searchStartAddress >>>>>>>>>>>>>>>>>>>>>>>>>>>>>" +  route.toString());
-        return "newRouteForm";
+        return "routeFormForSearchApi";
     }
 
     @GetMapping("/searchEndAddress")
@@ -74,7 +74,7 @@ public class RouteController {
         model.addAttribute("endAddressList", endAddressList);
         model.addAttribute(route);
         System.out.println("searchEndAddress >>>>>>>>>>>>>>>>>>>>>>>>>>>>>" +  route.toString());
-        return "newRouteForm";
+        return "routeFormForSearchApi";
     }
 
     @GetMapping("/saveRoute")

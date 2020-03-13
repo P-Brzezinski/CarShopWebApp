@@ -37,11 +37,8 @@ public class Driver {
     }
 
     public Driver() {
-    }
+        setDistanceTaken(Long.valueOf(0));
 
-    public Driver(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
     }
 
     public Long getId() {

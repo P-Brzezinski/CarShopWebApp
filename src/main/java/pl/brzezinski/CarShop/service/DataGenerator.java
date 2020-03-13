@@ -27,8 +27,8 @@ public class DataGenerator {
 
     TomTomDirectionsApi tomTomDirectionsApi = new TomTomDirectionsApi();
 
-    Driver driverOne = new Driver("Jan", "Kowalski");
-    Driver driverTwo = new Driver("Adam", "Adamski");
+    Driver driverOne = new Driver();
+    Driver driverTwo = new Driver();
 
     Car carOne = new Car("Audi", "Astra", Color.RED, 2020, "33344455566677788");
     Car carTwo = new Car("Toyota", "RAV4", Color.GREY, 2005, "33344455566677788");
@@ -54,10 +54,12 @@ public class DataGenerator {
 
     @PostConstruct
     public void createDriversData() {
+        driverOne.setFirstName("Jan");
+        driverOne.setLastName("Kowalski");
         driverDao.save(driverOne);
-        driverOne.setDistanceTaken(Long.valueOf(0));
+        driverTwo.setFirstName("Janusz");
+        driverTwo.setLastName("Cebula");
         driverDao.save(driverTwo);
-        driverTwo.setDistanceTaken(Long.valueOf(0));
     }
 
     //TODO split method to smaller methods
