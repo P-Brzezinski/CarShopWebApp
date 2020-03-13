@@ -1,35 +1,50 @@
 package pl.brzezinski.CarShop.service.tomTomApi;
 
 import org.json.JSONObject;
+import pl.brzezinski.CarShop.model.Address;
+import pl.brzezinski.CarShop.service.json.JsonService;
 
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TomTomSearchApi {
 
     private static final String KEY_FOR_TOMTOM = "U5AOrrRaKTNr4xW0fSqZt3Gyou9AJwiS";
+    JsonService jsonService = new JsonService();
 
+    public List<Address> executeQuery(String params) throws IOException {
+        String url = createSearchQuery(params);
+        JSONObject json = jsonService.readJsonFromUrl(url);
 
+        int totalResults = json.getJSONObject("summary").getInt("numResults");
+        List<Address> addressList = new ArrayList<>();
 
-    private JSONObject readJsonFromUrl(String url) throws IOException {
-        InputStream is = new URL(url).openStream();
-        try {
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-            String jsonText = readAll(rd);
-            JSONObject json = new JSONObject(jsonText);
-            return json;
-        } finally {
-            is.close();
+        for (int i = 0; i < totalResults; i++) {
+            Address address = new Address();
+            address.setType(json.getJSONArray("results").getJSONObject(i).getString("type"));
+            address.setCountry(json.getJSONArray("results").getJSONObject(i).getJSONObject("address").getString("country"));
+            address.setStreet(json.getJSONArray("results").getJSONObject(i).getJSONObject("address").getString("freeformAddress"));
+            address.setLat(String.valueOf(json.getJSONArray("results").getJSONObject(i).getJSONObject("position").getFloat("lat")));
+            address.setLon(String.valueOf(json.getJSONArray("results").getJSONObject(i).getJSONObject("position").getFloat("lon")));
+            addressList.add(address);
+            System.out.println(address.toString());
         }
+
+        System.out.println(totalResults);
+
+        System.out.println(json);
+
+        return addressList;
     }
 
-    private String readAll(Reader rd) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        int cp;
-        while ((cp = rd.read()) != -1) {
-            sb.append((char) cp);
-        }
-        return sb.toString();
+    private String createSearchQuery(String params) {
+        String url = String.format("https://api.tomtom.com/search/2/geocode/%s.json?extendedPostalCodesFor=Addr&key=%s",
+                params,
+                KEY_FOR_TOMTOM);
+        System.out.println(url);
+        return url;
     }
 }
