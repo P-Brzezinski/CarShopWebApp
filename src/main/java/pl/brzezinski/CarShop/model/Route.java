@@ -21,6 +21,7 @@ public class Route {
 
     @CanNotBeEmpty
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @FutureOrPresent(message = "This date can not be in the past")
     @Column(name = "start_date_time")
     private LocalDateTime startDateTime;
 

@@ -79,21 +79,14 @@ public class RouteControllerForSearchApi {
 
     @GetMapping("/saveRoute")
     public String saveRoute(Route route) throws IOException {
-        Long driverId = route.getDriverId();// tylko dla formularza
+        Long driverId = route.getDriverId();
         Driver driver = driverDao.getOne(driverId);
-
         Long carId = route.getCarId();
         Car car = carDao.getOne(carId);
-
-        // 2. Dla pobranego kierowcy dodajemy trase i do samochodu trase
         driver.addRoute(route);
         car.addRoute(route);
-
         System.out.println(route.toString());
         tomTomDirectionsApi.processRouteWithDataFromTomTom(route);
-
-        // 3. zapisujemy trase, kierowce, pojazd
-
         routeDao.save(route); // insert do tabeli Route z driver_id = null
         driverDao.save(driver); // update na tabeli Route z wpisaniem driver_id
         carDao.save(car); // update na tabeli Route z wpisaniem car_id

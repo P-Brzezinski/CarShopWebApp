@@ -5,15 +5,13 @@ import pl.brzezinski.CarShop.model.Address;
 import pl.brzezinski.CarShop.service.json.JsonService;
 
 import java.io.*;
-import java.net.URL;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TomTomSearchApi {
 
     private static final String KEY_FOR_TOMTOM = "U5AOrrRaKTNr4xW0fSqZt3Gyou9AJwiS";
-    JsonService jsonService = new JsonService();
+    private JsonService jsonService = new JsonService();
 
     public List<Address> executeQuery(String params) throws IOException {
         String url = createSearchQuery(params);
@@ -30,13 +28,7 @@ public class TomTomSearchApi {
             address.setLat(String.valueOf(json.getJSONArray("results").getJSONObject(i).getJSONObject("position").getFloat("lat")));
             address.setLon(String.valueOf(json.getJSONArray("results").getJSONObject(i).getJSONObject("position").getFloat("lon")));
             addressList.add(address);
-            System.out.println(address.toString());
         }
-
-        System.out.println(totalResults);
-
-        System.out.println(json);
-
         return addressList;
     }
 
@@ -44,7 +36,6 @@ public class TomTomSearchApi {
         String url = String.format("https://api.tomtom.com/search/2/geocode/%s.json?extendedPostalCodesFor=Addr&key=%s",
                 params,
                 KEY_FOR_TOMTOM);
-        System.out.println(url);
         return url;
     }
 }

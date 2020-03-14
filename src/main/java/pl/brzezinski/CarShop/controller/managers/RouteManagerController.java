@@ -64,16 +64,12 @@ public class RouteManagerController {
 
             tomTomDirectionsApi.processRouteWithDataFromTomTom(route);
 
-            //bez dwóch poniższych setterów Driver Assigned i Car Assigned w tabeli All Roads (w przegladarce) sie nie zmienie,
-            //ale w MySQL już tak, dlaczego?
             routeFromDao.setDriverId(route.getDriverId());
             routeFromDao.setCarId(route.getCarId());
 
             Driver driver = driverDao.getOne(route.getDriverId());
             Car car = carDao.getOne(route.getCarId());
 
-            //dlaczego po dodaniu nowej trasy stara znika?
-            //nie widać starej trasy w polu 'routes' w modelu Driver
             driver.addRoute(routeFromDao);
             car.addRoute(routeFromDao);
 
@@ -81,24 +77,20 @@ public class RouteManagerController {
             driverDao.save(driver);
             carDao.save(car);
         }else {
-            // 1. Pobrac konretnego kierowce - wg id z 'route'
-            Long driverId = route.getDriverId();// tylko dla formularza
+            Long driverId = route.getDriverId();
             Driver driver = driverDao.getOne(driverId);
 
             Long carId = route.getCarId();
             Car car = carDao.getOne(carId);
 
-            // 2. Dla pobranego kierowcy dodajemy trase i do samochodu trase
             driver.addRoute(route);
             car.addRoute(route);
 
             tomTomDirectionsApi.processRouteWithDataFromTomTom(route);
 
-            // 3. zapisujemy trase, kierowce, pojazd
-
-            routeDao.save(route); // insert do tabeli Route z driver_id = null
-            driverDao.save(driver); // update na tabeli Route z wpisaniem driver_id
-            carDao.save(car); // update na tabeli Route z wpisaniem car_id
+            routeDao.save(route);
+            driverDao.save(driver);
+            carDao.save(car);
         }
         return "redirect:/";
     }
