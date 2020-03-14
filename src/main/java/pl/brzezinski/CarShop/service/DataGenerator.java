@@ -9,7 +9,7 @@ import pl.brzezinski.CarShop.model.Car;
 import pl.brzezinski.CarShop.model.Driver;
 import pl.brzezinski.CarShop.model.Route;
 import pl.brzezinski.CarShop.model.enums.Color;
-import pl.brzezinski.CarShop.service.tomTomApi.TomTomApi;
+import pl.brzezinski.CarShop.service.tomTomApi.TomTomDirectionsApi;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
@@ -25,10 +25,10 @@ public class DataGenerator {
     @Autowired
     private RouteRepositoryDataJpaImpl routeDao;
 
-    TomTomApi tomTomApi = new TomTomApi();
+    TomTomDirectionsApi tomTomDirectionsApi = new TomTomDirectionsApi();
 
-    Driver driverOne = new Driver("Jan", "Kowalski");
-    Driver driverTwo = new Driver("Adam", "Adamski");
+    Driver driverOne = new Driver();
+    Driver driverTwo = new Driver();
 
     Car carOne = new Car("Audi", "Astra", Color.RED, 2020, "33344455566677788");
     Car carTwo = new Car("Toyota", "RAV4", Color.GREY, 2005, "33344455566677788");
@@ -54,10 +54,12 @@ public class DataGenerator {
 
     @PostConstruct
     public void createDriversData() {
+        driverOne.setFirstName("Jan");
+        driverOne.setLastName("Kowalski");
         driverDao.save(driverOne);
-        driverOne.setDistanceTaken(Long.valueOf(0));
+        driverTwo.setFirstName("Janusz");
+        driverTwo.setLastName("Cebula");
         driverDao.save(driverTwo);
-        driverTwo.setDistanceTaken(Long.valueOf(0));
     }
 
     //TODO split method to smaller methods
@@ -71,7 +73,7 @@ public class DataGenerator {
                 driverOne.getId(),
                 carOne.getId());
 
-        tomTomApi.processRouteWithDataFromTomTom(routeOne);
+        tomTomDirectionsApi.processRouteWithDataFromTomTom(routeOne);
         driverOne.addRoute(routeOne);
         carOne.addRoute(routeOne);
         routeDao.save(routeOne);
@@ -85,7 +87,7 @@ public class DataGenerator {
                 Long.valueOf(driverTwo.getId()),
                 Long.valueOf(carTwo.getId()));
 
-        tomTomApi.processRouteWithDataFromTomTom(routeTwo);
+        tomTomDirectionsApi.processRouteWithDataFromTomTom(routeTwo);
         driverTwo.addRoute(routeTwo);
         carTwo.addRoute(routeTwo);
         routeDao.save(routeTwo);

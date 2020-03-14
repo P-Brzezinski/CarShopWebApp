@@ -25,25 +25,25 @@
     <div>
         <h3>Driver and Car:</h3>
 
-            <div>Add driver:
-                <select th:field="*{driverId}">
-                    <option value="">SELECT</option>
-                    <option th:each="driver : ${allDrivers}"
-                            th:value="${driver.id}"
-                            th:utext="${driver.lastName}"/>
-                </select>
-                <div th:if="${#fields.hasErrors('driverId')}" th:errors="*{driverId}"></div>
-            </div>
+        <div>Add driver:
+            <select th:field="*{driverId}">
+                <option value="">SELECT</option>
+                <option th:each="driver : ${allDrivers}"
+                        th:value="${driver.id}"
+                        th:utext="${driver.lastName}"/>
+            </select>
+            <div th:if="${#fields.hasErrors('driverId')}" th:errors="*{driverId}"></div>
+        </div>
         <br>
-            <div>Add car:
-                <select th:field="*{carId}">
-                    <option value="">SELECT</option>
-                    <option th:each="car : ${allCars}"
-                            th:value="${car.id}"
-                            th:utext="${car.carModel}"/>
-                </select>
-                <div th:if="${#fields.hasErrors('carId')}" th:errors="*{carId}"></div>
-            </div>
+        <div>Add car:
+            <select th:field="*{carId}">
+                <option value="">SELECT</option>
+                <option th:each="car : ${allCars}"
+                        th:value="${car.id}"
+                        th:utext="${car.carModel}"/>
+            </select>
+            <div th:if="${#fields.hasErrors('carId')}" th:errors="*{carId}"></div>
+        </div>
     </div>
     <div>
         <h3>End at:</h3>

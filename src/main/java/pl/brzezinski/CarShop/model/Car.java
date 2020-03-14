@@ -32,6 +32,7 @@ public class Car {
     @Column(length = 20, name = "car_color")
     private Color color;
 
+    @CanNotBeEmpty
     @Positive(message = "{carFormError.mustBePositive}")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "date")
