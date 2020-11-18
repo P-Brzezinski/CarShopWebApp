@@ -24,3 +24,5 @@ Models with CRUD and other functionalities:
 Othe funcinalities:
 - full vadiation of fields in froms
 - REST interface for Driver
+
+Author: Paweł Brzeziński
